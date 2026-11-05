@@ -8,12 +8,47 @@ public class Surface : MonoBehaviour
     /// </summary>
     public DetecteurBoule Detecteur { get; private set; }
 
+    [SerializeField, Tooltip("Controleur animation.")]
+    private Animator animationController;
+
+    private GestionnairePiece gestionnairePiece;
+
     [SerializeField, Tooltip("Positions de génération des objets sur la surface.")]
     private Vector3[] positionGeneration;
 
     private void Awake()
     {
+        gestionnairePiece = ControleurJeu.Instance.GestionnairePiece;
         Detecteur = GetComponent<DetecteurBoule>();
+        
+        
+
+    }
+    private void Start()
+    {
+        gestionnairePiece.evenementPause += SetPause;
+        ControleurJeu controleJeu = ControleurJeu.Instance;
+        //animationController.SetBool("Pause", true);
+        animationController.SetBool("Pause", controleJeu.SurfaceMouvement);
+        Debug.Log(controleJeu.SurfaceMouvement);
+    }
+
+    private void OnDestroy()
+    {
+        if(gestionnairePiece != null)
+        {
+            gestionnairePiece.evenementPause -= SetPause;
+        }
+        
+    }
+
+    /// <summary>
+    /// modifie l'animation selon se qui est recu en parametre
+    /// </summary>
+    /// <param name="mouvemment">si la surface est en mouvement</param>
+    private void SetPause(bool mouvemment)
+    {
+        animationController.SetBool("Pause", mouvemment);
     }
 
     /// <summary>

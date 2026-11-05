@@ -11,11 +11,17 @@ public class ControleurJeu : MonoBehaviour
     /// </summary>
     public static ControleurJeu Instance { get; private set; }
 
+    public bool SurfaceMouvement;
+
     [field:SerializeField, Tooltip("Référence aux contrôles du joueur.")]
     public PlayerInput Controles { get; private set; }
 
+    [field: SerializeField, Tooltip("Référence gestionnaire de piece.")]
+    public GestionnairePiece GestionnairePiece { get; private set; }
+
     private void Awake()
     {
+        SurfaceMouvement = true;
         if(Instance == null)
         {
             Instance = this;

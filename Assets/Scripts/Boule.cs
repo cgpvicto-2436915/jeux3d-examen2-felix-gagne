@@ -14,6 +14,9 @@ public class Boule : MonoBehaviour
     [SerializeField, Tooltip("Référence au gestionnaire de charge pour gérer les charges d'accélération.")]
     private GestionnaireCharge gestionnaireCharge;
 
+    [SerializeField]
+    private GestionnairePiece gestionnairePiece;
+
     [SerializeField, Tooltip("Force de déplacement de la boule.")]
     private float forceDeplacement;
 
@@ -112,6 +115,11 @@ public class Boule : MonoBehaviour
     public void AjouterChargeAcceleration()
     {
         gestionnaireCharge.AjouterCharge();
+    }
+
+    public void AjouterPiece()
+    {
+        gestionnairePiece.AjouterPiece();
     }
 
     private void UtiliserChargeAcceleration(InputAction.CallbackContext contexte)
